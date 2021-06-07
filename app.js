@@ -1,0 +1,39 @@
+require('dotenv').config()
+const express = require("express");
+const { login, users, posts, comments, error } = require("./routes/index");
+const LogMiddleware = require("./middlewares/logger");
+require("./db-connection");
+const cors = require("cors");
+
+const app = express();
+//cross origin
+app.use(cors());
+//set up json body parser
+app.use(express.json());
+
+///use Log middleware
+app.use(LogMiddleware)
+
+//Login Router
+app.use("/api/login", login);
+
+//Users Router
+app.use("/api/users", users);
+
+//Posts Router
+app.use("/api/posts", posts);
+
+//Comments Router
+app.use("/api/posts", comments);
+
+//error route
+app.use("**", error);
+
+////////////////
+//// PORT | HOSTNAME
+const hostname = process.env.HOST;
+const port = process.env.PORT;
+
+app.listen(port, hostname, () => {
+  console.log(`Server running at http://${hostname}:${port}`);
+});
