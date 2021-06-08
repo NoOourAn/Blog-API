@@ -1,7 +1,7 @@
 var multer = require('multer');
 const multerS3 = require('multer-s3');
 const AWS = require('aws-sdk');
-
+const { v4: uuidv4 } = require('uuid');
 
 //// AWS config
 const ID = process.env.S3_ACCESS_KEY;
@@ -38,7 +38,7 @@ const upload = multer({
             if (file.mimetype === 'image/jpeg') {
                 filetype = 'jpg';
             }
-            const key = 'image-' + Date.now() + '.' + filetype;
+            const key = 'image-' + uuidv4() + '.' + filetype;
             cb(null, key);
         }
     }),
