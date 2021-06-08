@@ -4,6 +4,7 @@ const login = require('./login');
 const error = require('./error');
 const comments = require('./comments');
 const imgUpload = require('./ImgUpload')
+const recaptcha = require('./recaptcha')
 
 const routes = {
   login,
@@ -11,7 +12,8 @@ const routes = {
   posts,
   comments,
   error,
-  imgUpload
+  imgUpload,
+  recaptcha
 };
 
 module.exports = routes;

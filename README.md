@@ -22,6 +22,8 @@ npm install
 - HOST = '' 
 - PORT = ''
 - BUCKET_URL = 'https://nour-blog.s3.amazonaws.com/'
+- SITE_KEY = "Your SiteKey for google Recaptcha"
+- SECRET_KEY = "Your SecretKey for google Recaptcha"
 
 ---
 

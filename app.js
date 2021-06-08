@@ -1,6 +1,6 @@
 require('dotenv').config()
 const express = require("express");
-const { login, users, posts, comments, error, imgUpload} = require("./routes/index");
+const { login, users, posts, comments, error, imgUpload, recaptcha} = require("./routes/index");
 const LogMiddleware = require("./middlewares/logger");
 require("./db-connection");
 const cors = require("cors");
@@ -16,6 +16,9 @@ app.use(LogMiddleware)
 
 //Upload Image Router
 app.use("/api", imgUpload);
+
+//ReCaptcha Router
+app.use("/api", recaptcha);
 
 //Login Router
 app.use("/api/login", login);
