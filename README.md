@@ -58,8 +58,6 @@ API Service Url => http://localhost:3000/api
 - DELETE /posts/{post_id}/comments/{comment_id}
 
 
-## Parameters
-
 
 
 

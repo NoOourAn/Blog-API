@@ -4,6 +4,7 @@ const { login, users, posts, comments, error, imgUpload, recaptcha} = require(".
 const LogMiddleware = require("./middlewares/logger");
 require("./db-connection");
 const cors = require("cors");
+const mail = require("./mailer-service");
 
 const app = express();
 //cross origin
