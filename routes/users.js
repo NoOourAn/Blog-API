@@ -7,13 +7,8 @@ const { hashPassword } = require("./helper");
 ///api to get all USERS
 router.get("/", async (req, res) => {
   try {
-    users = await User.find({}, { password: 0 });
-
-    const obj = {
-      success: true,
-      users: users.length ? users : [], ///if no users return empty list
-    };
-    res.send(obj);
+    const users = await User.find({}, { password: 0 });
+    res.send(users ? users : []);
   } catch (err) {
     res.json({ success: false, message: err.message });
   }
@@ -23,14 +18,9 @@ router.get("/", async (req, res) => {
 ///api to get One USER by user Id
 router.get("/:id", async (req, res) => {
   try {
-    const {id} = req.params
-    user = await User.findOne({ _id: id }, { password: 0 });
-
-    const obj = {
-      success: true,
-      user: user ? user : "user not found", ///if no users return empty list
-    };
-    res.send(obj);
+    const { id } = req.params
+    const user = await User.findOne({ _id: id }, { password: 0 });
+    user ? res.send(user) : res.status(404).json({ success: false, message: "No User exist with this ID" });
   } catch (err) {
     res.json({ success: false, message: err.message });
   }
@@ -47,14 +37,14 @@ router.post("/", async (req, res) => {
       const FoundUser = await User.findOne({ username }).exec();
       if (FoundUser) throw new Error("username already exists");
 
-      await User.create({
+      const user = await User.create({
         username,
         password: await hashPassword(password),
         posts: [],
       });
 
       ///send response
-      res.json({ success: true, message: "user created Successfully" });
+      res.json({ success: true, message: "user created Successfully", user });
     } else throw new Error("username and password are required");
   } catch (err) {
     res.json({ success: false, message: err.message }); ///head to the same page with error msg

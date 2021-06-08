@@ -8,7 +8,7 @@ const AuthMiddleware = require("../middlewares/auth");
 router.get("/", async (req, res) => {
     try {
         const posts = await Post.find({});
-        await res.json({ success: true, posts: posts });
+        await res.json(posts);
     } catch (err) {
         res.json({ success: false, message: err.message });
     }
@@ -20,12 +20,7 @@ router.get("/:id", async (req, res) => {
     try {
         const { id } = req.params;
         const post = await Post.findOne({ _id: id });
-
-        const obj = {
-            success: true,
-            post: post ? post : "post not found",
-        };
-        res.send(obj);
+        post ? res.send(post) : res.status(404).json({ success: false, message: "No Post exist with this ID" });
     } catch (err) {
         res.json({ success: false, message: err.message });
     }
@@ -39,10 +34,11 @@ router.post("/", AuthMiddleware, async (req, res) => {
         const { title, body } = req.body;
         req.body.user_id = req.decodeData.id;
         if (title && body) {
-            await Post.create(req.body);
+            const post = await Post.create(req.body);
             const obj = {
                 success: true,
                 message: "post was created succesfully",
+                post,
             };
             res.send(obj);
         } else throw new Error("title and body are required");

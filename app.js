@@ -37,6 +37,6 @@ app.use("**", error);
 const hostname = process.env.HOST;
 const port = process.env.PORT;
 
-app.listen(port, hostname, () => {
+module.exports = app.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}`);
 });

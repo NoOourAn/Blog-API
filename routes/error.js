@@ -3,7 +3,7 @@ const router = express.Router()
 
 ///routes handlers
 router.get('/',async (req,res)=>{
-    await res.json({success:false,message:"not found"})
+    await res.status(404).json({success:false,message:"not found"})
 })
 
 

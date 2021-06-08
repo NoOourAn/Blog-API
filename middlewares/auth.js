@@ -7,6 +7,7 @@ module.exports = async (req, res, next) => {
     req.decodeData = decodeData; ///now we can access the user id in each request
     next();
   } catch (err) {
-    res.json({ success: false, message: err.message });
+    console.log(err.message)
+    res.status(401).json({ success: false, message: "Not Authorized" });
   }
 };

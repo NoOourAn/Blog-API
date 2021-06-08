@@ -7,7 +7,7 @@
     "start": "node .",
     "dev": "nodemon .",
     "debug": "nodemon --inspect .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "keywords": [
     "node",
@@ -28,5 +28,10 @@
     "multer-s3": "^2.9.0",
     "nodemon": "^2.0.7",
     "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
+    "mocha": "^9.0.0"
   }
 }
