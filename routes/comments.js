@@ -48,14 +48,14 @@ router.post("/:postId/comments", AuthMiddleware, async (req, res) => {
         const user_id = req.decodeData.id;
         if (text) {
             const newComment = { text, user_id }
-            await Post.findOneAndUpdate(
-                { _id: postId, user_id }, ///this is for matching doc
+            const post = await Post.findOneAndUpdate(
+                { _id: postId }, ///this is for matching doc
                 { $push: { comments: newComment } }
             )
 
             const obj = {
                 success: true,
-                message: "comment was created succesfully",
+                message: post ? "comment was created succesfully" : "post not found",
             };
             res.send(obj);
         } else throw new Error("comment text are required");
@@ -74,7 +74,6 @@ router.use(AuthMiddleware).route("/:postId/comments/:commentId")
             const userId = req.decodeData.id;
             const post = await Post.findOneAndUpdate(
                 { _id: postId, $or: [{ user_id: userId }, { "comments.user_id": userId }], "comments._id": commentId, }, ///the user owns the post can delete any comment on his post or the user wrote the comment itself
-                
                 { $pull: { comments: { _id: commentId } } }, ///this is the update statement
                 { returnOriginal: false }
             )
