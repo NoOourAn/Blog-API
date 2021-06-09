@@ -3,6 +3,7 @@ const router = express.Router();
 const User = require("../models/User");
 const { hashPassword, prepareToken } = require("./helper");
 const AuthMiddleware = require("../middlewares/auth");
+const mail = require("../email_service/mailer-service");
 
 ///////////////////////////////////
 ///api to get all USERS
@@ -32,14 +33,15 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   ///the api handling
   try {
-    const { username, password } = req.body;
-    if (username && password) {
+    const { username, email, password } = req.body;
+    if (username && email && password) {
       ///to check if username and email unique
-      const FoundUser = await User.findOne({ username }).exec();
-      if (FoundUser) throw new Error("username already exists");
+      const FoundUser = await User.findOne({$or:[{username},{email}]}).exec();
+      if (FoundUser) throw new Error("username or email already exists");
 
       const user = await User.create({
         username,
+        email,
         password: await hashPassword(password),
         posts: [],
       });
@@ -47,9 +49,12 @@ router.post("/", async (req, res) => {
       //prepare token for user
       const token = await prepareToken(user.id)
 
+      //send welcome email to the user
+      mail(email, username)
+
       ///send response
       res.json({ success: true, message: "user created Successfully", token });
-    } else throw new Error("username and password are required");
+    } else throw new Error("username, email and password are required");
   } catch (err) {
     res.json({ success: false, message: err.message }); ///head to the same page with error msg
   }
@@ -68,7 +73,7 @@ router.delete("/:id", AuthMiddleware, async (req, res) => {
         message: user ? "user deleted successfully" : "user not found",
       };
       res.send(obj);
-    }else throw new Error("Not Authorized");
+    } else throw new Error("Not Authorized");
   } catch (err) {
     res.json({ success: false, message: err.message });
   }
