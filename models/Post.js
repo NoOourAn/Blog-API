@@ -10,12 +10,12 @@ const postsSchema = new Schema(
         },
         title: {
             type: String,
-            maxlength: 50,
+            maxlength: 200,
             required: [true, "can't be blank"],
         },
         body: {
             type: String,
-            maxlength: 200,
+            maxlength: 2000,
             required: [true, "can't be blank"],
         },
         imgUrl: { type: String },
