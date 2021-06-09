@@ -1,7 +1,5 @@
-var express = require('express')
-var router = express.Router()
 
-router.use((req,res,next)=>{
+module.exports = async (req,res,next)=>{
   let logObj = {
       url:req.url,
       method:req.method,
@@ -9,6 +7,6 @@ router.use((req,res,next)=>{
   }
   console.log(logObj)
   next();
-})
+}
 
-module.exports = router
+

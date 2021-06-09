@@ -3,7 +3,7 @@ const users = require('./users');
 const login = require('./login');
 const error = require('./error');
 const comments = require('./comments');
-const imgUpload = require('./ImgUpload')
+const imgUpload = require('./imgUpload')
 const recaptcha = require('./recaptcha')
 
 const routes = {

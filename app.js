@@ -2,9 +2,11 @@ require('dotenv').config()
 const express = require("express");
 const { login, users, posts, comments, error, imgUpload, recaptcha} = require("./routes/index");
 const LogMiddleware = require("./middlewares/logger");
+const ValidateAPIKeyMiddleware = require("./middlewares/apiKeys");
+
 require("./db-connection");
 const cors = require("cors");
-const mail = require("./mailer-service");
+//const mail = require("./mailer-service");
 
 const app = express();
 //cross origin
@@ -12,8 +14,9 @@ app.use(cors());
 //set up json body parser
 app.use(express.json());
 
-///use Log middleware
+///use Log and apiKeys middleware
 app.use(LogMiddleware)
+app.use(ValidateAPIKeyMiddleware)
 
 //Upload Image Router
 app.use("/api", imgUpload);

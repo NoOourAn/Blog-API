@@ -8,6 +8,6 @@ module.exports = async (req, res, next) => {
     next();
   } catch (err) {
     console.log(err.message)
-    res.status(401).json({ success: false, message: "Not Authorized" });
+    res.status(401).json({ success: false, message: "Not Authenticated" });
   }
 };

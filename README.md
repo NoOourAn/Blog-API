@@ -24,6 +24,7 @@ npm install
 - BUCKET_URL = 'https://nour-blog.s3.amazonaws.com/'
 - SITE_KEY = "Your SiteKey for google Recaptcha"
 - SECRET_KEY = "Your SecretKey for google Recaptcha"
+- API_KEY = "YourApiKey"
 
 ---
 
@@ -33,7 +34,7 @@ npm install
 My Blog APIs are HTTP based RESTful APIs that use  ,API request and response bodies are formatted in JSON      
 ## Note: How to Use endpoints
 API Service Url => http://localhost:3000/api    
-{baseUrl}/api/{endpoint} => ex. http://localhost:3000/api/posts
+{baseUrl}/api/{endpoint}?api_key={Your_Api_Key} => ex. http://localhost:3000/api/posts?api_key=000000000
 ## API Documentation - Resources
 ### login
 - POST /login

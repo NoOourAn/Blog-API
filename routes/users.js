@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
 const { hashPassword, prepareToken } = require("./helper");
+const AuthMiddleware = require("../middlewares/auth");
 
 ///////////////////////////////////
 ///api to get all USERS
@@ -54,21 +55,23 @@ router.post("/", async (req, res) => {
   }
 });
 
-//////ADMIN functionality
-// router.delete("/:id", async (req, res) => {
-//   ///delete POST
-//   try {
-//     console.log(req.params)
-//     const { id } = req.params;
-//     const post = await User.findOneAndDelete({ _id: id });
-//     const obj = {
-//       success: true,
-//       message: post ? "user deleted successfully" : "post not found",
-//     };
-//     res.send(obj);
-//   } catch (err) {
-//     res.json({ success: false, message: err.message });
-//   }
-// });
+//////Delete User ---Only user can DELETE his Acccount
+router.delete("/:id", AuthMiddleware, async (req, res) => {
+  ///delete POST
+  try {
+    const { id } = req.params;
+    const user_id = req.decodeData.id;
+    if (id === user_id) {
+      const user = await User.findOneAndDelete({ _id: id });
+      const obj = {
+        success: true,
+        message: user ? "user deleted successfully" : "user not found",
+      };
+      res.send(obj);
+    }else throw new Error("Not Authorized");
+  } catch (err) {
+    res.json({ success: false, message: err.message });
+  }
+});
 
 module.exports = router;

@@ -3,13 +3,13 @@ const nodemailer = require('nodemailer');
 async function sendConfirmationMail(useremail,username){
     try {
         let transporter = nodemailer.createTransport({
-            host: 'email-smtp.us-east-2.amazonaws.com',
+            host: 'smtp-relay.sendinblue.com',
             port: 587,
             secure: false,
             requireTLS: true,
             auth: {
-                user: 'AKIAW5Z2PRQ7WLMPLEE2',
-                pass: 'BGcfq7xHzxvcfDWLg6oYqukTIWONUxtRswQiVXWuKl5s'
+                user: 'nouranaborwash@gmail.com',
+                pass: 'nxhdE9b4szTZ1GjW'
             },
             tls:{
                 rejectUnauthorized:false
@@ -17,7 +17,7 @@ async function sendConfirmationMail(useremail,username){
         });
 
         let mailOptions = {
-            from: 'nouranaborwash@gmail.com',
+            from: 'blog@blog-now-api.herokuapp.com',
             to: `${useremail}`,
             subject: 'Sending Email using Node.js',
             text: `Welcome to our Familia ${username}!`
