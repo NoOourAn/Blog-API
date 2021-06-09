@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 const User = require("../models/User");
+const { prepareToken } = require("./helper")
 
 //to post the registered user info. (login)
 router.post("/", async (req, res) => {
@@ -17,11 +17,11 @@ router.post("/", async (req, res) => {
       if (!isMatch) throw new Error("wrong username or password!!");
 
       //prepare token for user
-      const token = await jwt.sign({ id: user.id }, process.env.TOKEN_SECRETKEY);
+      const token = await prepareToken(user.id)
       const obj = {
         success: true,
         message: "logged in successfully",
-        token: token,
+        token,
       };
       res.json(obj);
     } else throw new Error("username and password are required");

@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
-const { hashPassword } = require("./helper");
+const { hashPassword, prepareToken } = require("./helper");
 
 ///////////////////////////////////
 ///api to get all USERS
@@ -43,8 +43,11 @@ router.post("/", async (req, res) => {
         posts: [],
       });
 
+      //prepare token for user
+      const token = await prepareToken(user.id)
+
       ///send response
-      res.json({ success: true, message: "user created Successfully", user });
+      res.json({ success: true, message: "user created Successfully", token });
     } else throw new Error("username and password are required");
   } catch (err) {
     res.json({ success: false, message: err.message }); ///head to the same page with error msg

@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
-async function hashPassword(password){
+async function hashPassword(password) {
     ///to check if password is strong enough
     var Passwordregex = new RegExp("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}");
     if (!Passwordregex.test(password))
@@ -11,6 +12,12 @@ async function hashPassword(password){
     return await bcrypt.hash(password, 10);
 }
 
+async function prepareToken(id) {
+    //prepare token for user
+    return await jwt.sign({ id }, process.env.TOKEN_SECRETKEY);
+}
+
 module.exports = {
-    hashPassword
+    hashPassword,
+    prepareToken
 }
