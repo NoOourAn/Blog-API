@@ -7,6 +7,6 @@ module.exports = async (req, res, next) => {
         else throw new Error();
     } catch (err) {
         console.log(err.message)
-        res.status(400).json({ success: false, message: "API KEY is InValid, please provide a valid API KEY" });
+        res.status(400).json({ success: false, message: "Please provide a valid API KEY !" });
     }
 };

@@ -25,6 +25,9 @@ npm install
 - SITE_KEY = "Your SiteKey for google Recaptcha"
 - SECRET_KEY = "Your SecretKey for google Recaptcha"
 - API_KEY = "YourApiKey"
+- SMTP_SERVER = "smtp-relay.sendinblue.com" ///or any server you want
+- LOGIN = 'YourLogin' ///SMTP login
+- PASS = 'YourPass' ///SMTP password
 
 ---
 

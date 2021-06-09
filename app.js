@@ -1,16 +1,18 @@
 require('dotenv').config()
+require("./db-connection");
 const express = require("express");
 const { login, users, posts, comments, error, imgUpload, recaptcha} = require("./routes/index");
 const LogMiddleware = require("./middlewares/logger");
 const ValidateAPIKeyMiddleware = require("./middlewares/apiKeys");
-
-require("./db-connection");
 const cors = require("cors");
-//const mail = require("./mailer-service");
+// const mail = require("./email_service/mailer-service");
+
+// mail("nouranaborwash@gmail.com","nouran")
 
 const app = express();
 //cross origin
 app.use(cors());
+
 //set up json body parser
 app.use(express.json());
 
