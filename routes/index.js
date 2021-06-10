@@ -3,8 +3,11 @@ const users = require('./users');
 const login = require('./login');
 const error = require('./error');
 const comments = require('./comments');
-const imgUpload = require('./imgUpload')
-const recaptcha = require('./recaptcha')
+const imgUpload = require('./imgUpload');
+const recaptcha = require('./recaptcha');
+const smsService = require('./SmsService')
+const activateAccount = require('./activateAccount')
+
 
 const routes = {
   login,
@@ -13,7 +16,9 @@ const routes = {
   comments,
   error,
   imgUpload,
-  recaptcha
+  recaptcha,
+  smsService,
+  activateAccount
 };
 
 module.exports = routes;

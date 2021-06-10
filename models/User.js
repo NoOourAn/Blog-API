@@ -31,6 +31,10 @@ const usersSchema = new Schema(
       type: Boolean,
       default: true,
     },
+    activated: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );

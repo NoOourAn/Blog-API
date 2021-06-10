@@ -1,7 +1,7 @@
 require('dotenv').config()
 require("./db-connection");
 const express = require("express");
-const { login, users, posts, comments, error, imgUpload, recaptcha} = require("./routes/index");
+const { login, users, posts, comments, error, imgUpload, recaptcha, smsService, activateAccount} = require("./routes/index");
 const LogMiddleware = require("./middlewares/logger");
 const ValidateAPIKeyMiddleware = require("./middlewares/apiKeys");
 const cors = require("cors");
@@ -23,6 +23,12 @@ app.use("/api", imgUpload);
 
 //ReCaptcha Router
 app.use("/api", recaptcha);
+
+//Sms Service Router
+app.use("/api", smsService);
+
+//Sms Service Router
+app.use("/api", activateAccount);
 
 //Login Router
 app.use("/api/login", login);

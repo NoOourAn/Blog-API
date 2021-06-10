@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
-const { hashPassword, prepareToken } = require("./helper");
+const { hashPassword, prepareEmailToken } = require("./helper");
 const AuthMiddleware = require("../middlewares/auth");
 const mail = require("../email_service/mailer-service");
 
@@ -46,14 +46,14 @@ router.post("/", async (req, res) => {
         posts: [],
       });
 
-      //prepare token for user
-      const token = await prepareToken(user.id)
+      //prepare token to activate user
+      const token = await prepareEmailToken(user.id)
 
-      //send welcome email to the user
-      mail(email, username)
+      //send Confirmation Mail to the user
+      mail(email, username, token)
 
       ///send response
-      res.json({ success: true, message: "user created Successfully", token });
+      res.json({ success: true, message: "user created Successfully"});
     } else throw new Error("username, email and password are required");
   } catch (err) {
     res.json({ success: false, message: err.message }); ///head to the same page with error msg

@@ -12,12 +12,18 @@ async function hashPassword(password) {
     return await bcrypt.hash(password, 10);
 }
 
-async function prepareToken(id) {
+async function prepareLoginToken(id) {
     //prepare token for user
     return await jwt.sign({ id }, process.env.TOKEN_SECRETKEY);
 }
 
+async function prepareEmailToken(id) {
+    //prepare token for user
+    return await jwt.sign({ id }, process.env.Email_SECRETKEY);
+}
+
 module.exports = {
     hashPassword,
-    prepareToken
+    prepareLoginToken,
+    prepareEmailToken
 }
