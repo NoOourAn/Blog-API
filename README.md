@@ -2,6 +2,9 @@
 blog API with authentication and comments 
 
 # Getting Started As a developer
+### Postman
+You can find postman collection for most of the api routes in the project directory 
+
 ### These instructions will get you a copy of the project up and running on your local machine.
 Below steps are needed only for the first time when you setup your dev machine
 
@@ -34,7 +37,7 @@ npm install
 
 # Getting Started As a Consumer
 ### We assume that you have basic understanding of how to consume APIs 
-My Blog APIs are HTTP based RESTful APIs that use  ,API request and response bodies are formatted in JSON      
+My Blog APIs are HTTP based RESTful APIs that use  ,API request and response bodies are formatted in JSON   
 ## Note: How to Use endpoints
 API Service Url => http://localhost:3000/api    
 {baseUrl}/api/{endpoint}?api_key={Your_Api_Key} => ex. http://localhost:3000/api/posts?api_key=000000000
