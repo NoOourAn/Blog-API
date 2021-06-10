@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const AuthMiddleware = require("../middlewares/auth");
-const upload = require("../middlewares/imgUploadOnS3");
+const AuthMiddleware = require("../../middlewares/auth");
+const upload = require("../../middlewares/imgUploadOnS3");
 
 
 router.post("/uploadImage", AuthMiddleware, upload.single('file'), async (req, res) => {

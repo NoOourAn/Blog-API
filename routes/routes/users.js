@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const User = require("../models/User");
+const User = require("../../models/User");
 const { hashPassword, prepareEmailToken } = require("./helper");
-const AuthMiddleware = require("../middlewares/auth");
-const mail = require("../email_service/mailer-service");
+const AuthMiddleware = require("../../middlewares/auth");
+const mail = require("../../email_service/mailer-service");
 
 ///////////////////////////////////
 ///api to get all USERS

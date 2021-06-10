@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
-const User = require("../models/User");
+const User = require("../../models/User");
 const { prepareLoginToken } = require("./helper")
 
 //to post the registered user info. (login)

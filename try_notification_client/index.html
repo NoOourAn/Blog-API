@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>NodeJS socket for comments</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.css" integrity="sha512-oe8OpYjBaDWPt2VmSFR+qYOdnTjeV9QPLJUeqZyprDEQvQLJ9C5PCFclxwNuvb/GQgQngdCXzKSFltuHD3eCxA==" crossorigin="anonymous" referrerpolicy="no-referrer" />  </head>
+  <body>
+    <input type="text" id="comment" />
+    <button type="button" onclick="sendComment()" placeholder="write your comment">Comment</button>
+
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"
+      integrity="sha512-lbwH47l/tPXJYG9AcFNoJaTMhGvYWhVM9YI43CT+uteTRRaiLCui8snIgyAN8XWgNjNhCqlAUdzZptso6OCoFQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdn.socket.io/4.1.1/socket.io.min.js"
+      integrity="sha384-cdrFIqe3RasCMNE0jeFG9xJHog/tgOVC1E9Lzve8LQN1g5WUHo0Kvk1mawWjxX7a"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      const socket = io("http://localhost:3000");
+
+      toastr.options = {
+        timeOut: 2000,
+        positionClass: "toast-bottom-right",
+        extendedTimeOut: 0,
+        fadeOut: 0,
+        fadeIn: 0,
+        showDuration: 0,
+        hideDuration: 0,
+        debug: false,
+      };
+
+      socket.on("new-notification", (resp) => {
+        toastr.success(resp, "New notification");
+      });
+
+      function sendComment() {
+        let comment = document.getElementById("comment").value;
+        if (comment.trim() !== "") {
+          socket.emit("send-notifications", comment);
+        }
+      }
+    </script>
+  </body>
+</html>

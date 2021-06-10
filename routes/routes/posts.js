@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const Post = require("../models/Post");
-const AuthMiddleware = require("../middlewares/auth");
+const Post = require("../../models/Post");
+const AuthMiddleware = require("../../middlewares/auth");
 
 //////////////////
 ///GET All Posts operation
@@ -35,11 +35,17 @@ router.post("/", AuthMiddleware, async (req, res) => {
         req.body.user_id = req.decodeData.id;
         if (title && body) {
             const post = await Post.create(req.body);
+
             const obj = {
                 success: true,
                 message: "post was created succesfully",
                 post,
             };
+            ////users notifications
+
+
+            
+            ////client side response
             res.send(obj);
         } else throw new Error("title and body are required");
     } catch (err) {

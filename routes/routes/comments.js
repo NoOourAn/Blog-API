@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const Post = require("../models/Post");
-const AuthMiddleware = require("../middlewares/auth");
+const Post = require("../../models/Post");
+const AuthMiddleware = require("../../middlewares/auth");
 
 ///GET All Comments of Specific post
 router.get("/:postId/comments", async (req, res) => {
@@ -33,9 +33,6 @@ router.get("/:postId/comments/:commentId", async (req, res) => {
     }
 });
 
-///////////////////////////////////
-// /////Comments CRUD Operations
-
 // /////////////////////////////////////////
 // ///CREATE UPDATE DELETE comment /// Needs Authentication ///Use Middleware
 
@@ -52,7 +49,6 @@ router.post("/:postId/comments", AuthMiddleware, async (req, res) => {
                 { _id: postId }, ///this is for matching doc
                 { $push: { comments: newComment } }
             )
-
             const obj = {
                 success: true,
                 message: post ? "comment was created succesfully" : "post not found",

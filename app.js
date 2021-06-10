@@ -1,7 +1,7 @@
 require('dotenv').config()
 require("./db-connection");
 const express = require("express");
-const { login, users, posts, comments, error, imgUpload, recaptcha, smsService, activateAccount} = require("./routes/index");
+const { login, users, posts, comments, error, imgUpload, recaptcha, smsService, activateAccount } = require("./routes/index");
 const LogMiddleware = require("./middlewares/logger");
 const ValidateAPIKeyMiddleware = require("./middlewares/apiKeys");
 const cors = require("cors");
@@ -50,6 +50,29 @@ app.use("**", error);
 const hostname = process.env.HOST;
 const port = process.env.PORT;
 
-module.exports = app.listen(port, hostname, () => {
+const server = app.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}`);
 });
+
+module.exports = server
+
+////////////Handling Notification Service
+const io = require('socket.io')(server, {
+  cors: {
+    origin: "http://localhost:4200",
+    methods: ["GET", "POST"],
+    credentials: true
+  }
+});
+io.on('connection', (socket) => {
+  console.log("socket connected")
+
+  socket.on("disconnect", () => {
+    console.log("socket disconnected")
+  })
+
+  socket.on("send-notifications", (data) => {
+    io.emit("new-notification", data)
+  })
+});
+

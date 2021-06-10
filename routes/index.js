@@ -1,12 +1,12 @@
-const posts = require('./posts');
-const users = require('./users');
-const login = require('./login');
-const error = require('./error');
-const comments = require('./comments');
-const imgUpload = require('./imgUpload');
-const recaptcha = require('./recaptcha');
-const smsService = require('./SmsService')
-const activateAccount = require('./activateAccount')
+const users = require('./routes/users');
+const comments = require('./routes/comments');
+const posts = require('./routes/posts');
+const login = require('./routes/login');
+const error = require('./routes/error');
+const imgUpload = require('./features/imgUpload');
+const recaptcha = require('./features/recaptcha');
+const smsService = require('./features/SmsService')
+const activateAccount = require('./features/activateAccount')
 
 
 const routes = {
